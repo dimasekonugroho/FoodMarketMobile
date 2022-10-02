@@ -1,12 +1,28 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Button, Gap, Header, TextInput} from '../../component';
+import {useSelector, useDispatch} from 'react-redux';
+import {useForm} from '../../utils';
 
 const SignUp = ({navigation}) => {
+  const [form, setForm] = useForm({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const onSubmit = () => {
+    console.log('form: ', form);
+    dispatch({type: 'SET_REGISTER', value: form});
+    navigation.navigate('SignUpAddress');
+  };
+
   return (
     <View style={styles.page}>
       <Header title="Sign Up" subTitle="Register and eat" onBack={() => {}} />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.container}>
           <View style={styles.photo}>
             <View style={styles.borderPhoto}>
@@ -15,19 +31,29 @@ const SignUp = ({navigation}) => {
               </View>
             </View>
           </View>
-          <TextInput label="Full Name" placeholder="Enter Your Full Name" />
+          <TextInput
+            label="Full Name"
+            placeholder="Enter Your Full Name"
+            value={form.name}
+            onChangeText={value => setForm('name', value)}
+          />
           <Gap height={16} />
           <TextInput
             label="Email Address"
             placeholder="Enter Your Email Address"
+            value={form.email}
+            onChangeText={value => setForm('email', value)}
           />
           <Gap height={16} />
-          <TextInput label="Password" placeholder="Enter your password" />
-          <Gap height={24} />
-          <Button
-            text="Continue"
-            onPress={() => navigation.navigate('SignUpAddress')}
+          <TextInput
+            label="Password"
+            placeholder="Enter your password"
+            value={form.password}
+            onChangeText={value => setForm('password', value)}
+            secureTextEntry
           />
+          <Gap height={24} />
+          <Button text="Continue" onPress={onSubmit} />
         </View>
       </ScrollView>
     </View>

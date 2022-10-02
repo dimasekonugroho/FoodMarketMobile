@@ -1,22 +1,16 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {SplashScreen, SignIn} from './pages';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import Router from './router';
+import {Provider} from 'react-redux';
+import store from './redux/store';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Router />
+      <Provider store={store}>
+        <Router />
+      </Provider>
     </NavigationContainer>
   );
 };
