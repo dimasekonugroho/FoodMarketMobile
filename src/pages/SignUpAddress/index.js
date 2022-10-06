@@ -1,8 +1,10 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Button, Gap, Header, Select, TextInput} from '../../component';
 import {useForm} from '../../utils';
 import {useDispatch, useSelector} from 'react-redux';
+import {setLoading} from '../../redux/action';
+import {signUpAction} from '../../redux/action/auth';
 
 const SignUpAddress = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -13,7 +15,7 @@ const SignUpAddress = ({navigation}) => {
   });
 
   const dispatch = useDispatch();
-  const registerReducer = useSelector(state => state.registerReducer);
+  const {registerReducer, photoReducer} = useSelector(state => state);
 
   const onSubmit = () => {
     console.log('form: ', form);
@@ -21,8 +23,8 @@ const SignUpAddress = ({navigation}) => {
       ...form,
       ...registerReducer,
     };
-    console.log('Data Register: ', data);
-    // navigation.replace('SuccessSignUp')
+    dispatch(setLoading(true));
+    dispatch(signUpAction(data, photoReducer, navigation));
   };
 
   return (
@@ -30,7 +32,7 @@ const SignUpAddress = ({navigation}) => {
       <Header
         title="Address"
         subTitle="Make sure it's valid!"
-        onBack={() => {}}
+        onBack={() => navigation.goBack()}
       />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.container}>
