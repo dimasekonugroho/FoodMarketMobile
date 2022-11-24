@@ -7,16 +7,27 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {foodDummy6, IcBackWhite} from '../../assets';
-import {Button, Counter, Rating} from '../../component';
+import {IcBackWhite} from '../../assets';
+import {Button, Counter, Number, Rating} from '../../component';
 import OrderSummary from '../OrderSummary';
+import {useState} from 'react';
 
-const FoodDetail = ({navigation}) => {
+const FoodDetail = ({navigation, route}) => {
+  const {name, picturePath, description, ingredients, rate, price} =
+    route.params;
+  const [totalItem, setTotalItem] = useState(1);
+
+  const onCounterChange = value => {
+    console.log('Counter: ', value);
+    setTotalItem(value);
+  };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.page}>
-        <ImageBackground source={foodDummy6} style={styles.cover}>
-          <TouchableOpacity style={styles.back}>
+        <ImageBackground source={{uri: picturePath}} style={styles.cover}>
+          <TouchableOpacity
+            style={styles.back}
+            onPress={() => navigation.goBack()}>
             <IcBackWhite />
           </TouchableOpacity>
         </ImageBackground>
@@ -24,23 +35,21 @@ const FoodDetail = ({navigation}) => {
           <View style={styles.mainContent}>
             <View style={styles.productContainer}>
               <View>
-                <Text style={styles.title}>Makanan</Text>
-                <Rating />
+                <Text style={styles.title}>{name}</Text>
+                <Rating number={rate} />
               </View>
-              <Counter />
+
+              {/* hitungaan */}
+              <Counter onValueChange={onCounterChange} />
             </View>
-            <Text style={styles.desc}>
-              Makanan khas Bandung yang cukup sering dipesan oleh anak muda
-              dengan pola makan yang cukup tinggi dengan mengutamakan diet yang
-              sehat dan teratur.
-            </Text>
+            <Text style={styles.desc}>{description}</Text>
             <Text style={styles.label}>Ingredients:</Text>
-            <Text style={styles.desc}>Seledri, telur, blueberry, madu.</Text>
+            <Text style={styles.desc}>{ingredients}</Text>
           </View>
           <View style={styles.footer}>
             <View style={styles.priceContainer}>
               <Text style={styles.labelTotal}>Total Price:</Text>
-              <Text style={styles.priceTotal}>Rp 12.232.000</Text>
+              <Number number={totalItem * price} style={styles.priceTotal} />
             </View>
             <View style={styles.button}>
               <Button

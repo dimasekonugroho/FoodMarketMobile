@@ -6092,6 +6092,13 @@ react-native@0.70.1:
     whatwg-fetch "^3.0.0"
     ws "^6.1.4"
 
+react-number-format@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-5.1.2.tgz#54feff94d837e67078e234c2950d9a0fb96df3d6"
+  integrity sha512-NXm/MvZVjmPqrFbjAut/prCyBZ+pA+O+C12rDkWZrwS3JXz1J42RC1kpclkdnkx2KDjRCNFLb21FlwGcNBZddw==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-redux@^8.0.4:
   version "8.0.4"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.4.tgz#80c31dffa8af9526967c4267022ae1525ff0e36a"
