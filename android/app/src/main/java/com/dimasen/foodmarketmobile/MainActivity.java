@@ -1,4 +1,4 @@
-package com.foodmarketmobile;
+package com.dimasen.foodmarketmobile;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
