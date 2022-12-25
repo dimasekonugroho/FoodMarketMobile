@@ -11,16 +11,56 @@ import {IcBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../component';
 import OrderSummary from '../OrderSummary';
 import {useState} from 'react';
+import {useEffect} from 'react';
+import {getData} from '../../utils';
 
 const FoodDetail = ({navigation, route}) => {
-  const {name, picturePath, description, ingredients, rate, price} =
+  const {id, name, picturePath, description, ingredients, rate, price} =
     route.params;
   const [totalItem, setTotalItem] = useState(1);
+  const [userProfile, setUserProfile] = useState({});
 
+  // mengambil data user
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      setUserProfile(res);
+    });
+  });
+
+  // perhitungan harga
   const onCounterChange = value => {
-    console.log('Counter: ', value);
+    // console.log('Counter: ', value);
     setTotalItem(value);
   };
+
+  // proses order now
+  const onOrder = () => {
+    const totalPrice = totalItem * price;
+    const driver = 10000;
+    const tax = (10 / 100) * totalPrice;
+    const total = totalPrice + driver + tax;
+
+    const data = {
+      item: {
+        id: id,
+        name: name,
+        price: price,
+        picturePath: picturePath,
+      },
+      transaction: {
+        totalItem: totalItem,
+        totalPrice: totalPrice,
+        driver: driver,
+        tax: tax,
+        total: total,
+      },
+      userProfile,
+    };
+
+    console.log('data order: ', data);
+    navigation.navigate('OrderSummary', data);
+  };
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.page}>
@@ -52,10 +92,7 @@ const FoodDetail = ({navigation, route}) => {
               <Number number={totalItem * price} style={styles.priceTotal} />
             </View>
             <View style={styles.button}>
-              <Button
-                text="Order Now"
-                onPress={() => navigation.navigate('OrderSummary')}
-              />
+              <Button text="Order Now" onPress={onOrder} />
             </View>
           </View>
         </View>

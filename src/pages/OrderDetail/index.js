@@ -1,58 +1,97 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Button, Header, ItemListFood, ItemValue} from '../../component';
-import {foodDummy1} from '../../assets';
+import {getData} from '../../utils';
+import {Axios} from 'axios';
 
-const OrderDetail = ({navigation}) => {
+const OrderDetail = ({route, navigation}) => {
+  const {} = route.params;
+
+  const onCancel = () => {
+    const data = {
+      status: 'CANCELLED',
+    };
+    getData('token').then(resToken => {
+      Axios.post(`${API_HOST.url}/transaction/${order.id}`, data, {
+        headers: {
+          Authorization: resToken.value,
+        },
+      })
+        .then(res => {
+          console.log('success cancel order: ', res);
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'MainApp'}],
+          });
+        })
+        .catch(err => {
+          console.log('err: ', err);
+        });
+    });
+  };
   return (
     <ScrollView>
       <View>
         <Header
           title="Payment"
           subTitle="You deserve better meal"
-          onBack={() => {}}
+          onBack={() => navigation.goBack()}
         />
         <View style={styles.content}>
           <Text style={styles.label}>Item Ordered</Text>
           <ItemListFood
-            image={foodDummy1}
+            image={{uri: order.food.picturePath}}
             type="order-summary"
-            name="Makanan"
-            price="100.000"
-            items={14}
+            name={order.food.name}
+            price={order.food.price}
+            items={order.quantity}
           />
           <Text style={styles.label}>Details Transaction</Text>
-          <ItemValue label="Makanan" value="Rp 12.345.000" />
-          <ItemValue label="Driver" value="Rp 50.000" />
-          <ItemValue label="Tax 10%" value="RP 1.234.500" />
+          <ItemValue
+            label={order.food.name}
+            value={order.food.price * order.quantity}
+            type="currency"
+          />
+          <ItemValue label="Driver" value={50000} type="currency" />
+          <ItemValue
+            label="Tax 10%"
+            value={(10 / 100) * order.total}
+            type="currency"
+          />
           <ItemValue
             label="Total Price"
-            value="Rp. 123.456.789"
+            value={order.total}
             valueColor="#1ABC9C"
           />
         </View>
 
         <View style={styles.content}>
           <Text style={styles.label}>Deliver to:</Text>
-          <ItemValue label="Name" value="Dimas Eko" />
-          <ItemValue label="Phone No." value="085710105917" />
-          <ItemValue label="Adddess" value="Jl. Swabhakti" />
-          <ItemValue label="House No." value="D2 no. 02" />
-          <ItemValue label="City" value="Tangerang Selatan" />
+          <ItemValue label="Name" value={order.user.name} />
+          <ItemValue label="Phone No." value={order.user.phoneNumber} />
+          <ItemValue label="Adddess" value={order.user.address} />
+          <ItemValue label="House No." value={order.user.houseNumber} />
+          <ItemValue label="City" value={order.user.city} />
         </View>
 
         <View style={styles.content}>
           <Text style={styles.label}>Order Status:</Text>
-          <ItemValue label="#FM209391" value="Paid" valueColor="#1ABC9C" />
+          <ItemValue
+            label={`#${order.id}`}
+            value={order.status}
+            valueColor={order.status === 'CANCELLED' ? '#D9435E' : '#1ABC9C'}
+          />
         </View>
 
         <View style={styles.button}>
-          <Button
-            text="Cancel My Order"
-            onPress={() => navigation.replace('SuccessOrder')}
-            color="#D9435E"
-            textColor="white"
-          />
+          {order.status === 'PENDING' && (
+            <Button
+              text="Cancel My Order"
+              onPress={onCancel}
+              color="#D9435E"
+              textColor="white"
+            />
+          )}
         </View>
       </View>
     </ScrollView>
