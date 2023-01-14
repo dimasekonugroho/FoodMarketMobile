@@ -46,27 +46,23 @@ const Account = () => {
       <ItemListProfile text="Edit Profile" />
       <ItemListProfile text="Home Address" />
       <ItemListProfile text="Security" />
-      <ItemListProfile text="Payment" />
       <ItemListProfile text="SignOut" onPress={signOut} />
     </View>
   );
 };
 
-const FoodMarket = () => {
+const AboutMe = () => {
   const navigation = useNavigation();
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ItemListProfile text="Rate App" />
-      <ItemListProfile text="Help Center" />
-      <ItemListProfile text="Privacy & Policy" />
-      <ItemListProfile text="Terms & Conditions" />
     </View>
   );
 };
 
 const renderScene = SceneMap({
   1: Account,
-  2: FoodMarket,
+  2: AboutMe,
 });
 
 const ProfileTabSection = () => {
@@ -75,7 +71,7 @@ const ProfileTabSection = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: '1', title: 'Account'},
-    {key: '2', title: 'FoodMarket'},
+    {key: '2', title: 'About Me'},
   ]);
 
   return (

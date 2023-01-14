@@ -1,11 +1,15 @@
-import {StyleSheet, Text, View, useWindowDimensions, Image} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+  ScrollView,
+} from 'react-native';
+import React, {useEffect} from 'react';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {foodDummy1, foodDummy2, foodDummy3, foodDummy4} from '../../../assets';
 import ItemListFood from '../ItemListFood';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {useEffect} from 'react';
 import {getInProgress, getPastOrders} from '../../../redux/action';
 
 //custom tab-bar
@@ -47,21 +51,23 @@ const InProgress = () => {
   }, []);
 
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {inProgress.map(order => {
-        return (
-          <ItemListFood
-            key={order.id}
-            image={{uri: order.food.picturePath}}
-            onPress={() => navigation.navigate('OrderDetail', order)}
-            type="in-progress"
-            items={order.quantity}
-            name={order.food.name}
-            price={order.total}
-          />
-        );
-      })}
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {inProgress.map(order => {
+          return (
+            <ItemListFood
+              key={order.id}
+              image={{uri: order.food.picturePath}}
+              onPress={() => navigation.navigate('OrderDetail', order)}
+              type="in-progress"
+              items={order.quantity}
+              name={order.food.name}
+              price={order.total}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 

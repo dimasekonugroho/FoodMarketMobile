@@ -25,7 +25,7 @@ export const signUpAction =
             },
           })
             .then(resUpload => {
-              profile.profile_photo_url = `http://foodmarket-backend.buildwithangga.id/storage/${resUpload.data.data[0]}`;
+              profile.profile_photo_url = `${API_HOST.storage}/${resUpload.data.data[0]}`;
               storeData('userProfile', profile);
               navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
             })

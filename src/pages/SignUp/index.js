@@ -41,12 +41,19 @@ const SignUp = ({navigation}) => {
         if (response.didCancel || response.error) {
           showMessage('Anda tidak memilih photo');
         } else {
-          const source = {uri: response.uri};
+          const source = {uri: 'response.uri'};
           const dataImage = {
             uri: response.uri,
             type: response.type,
             name: response.fileName,
           };
+
+          response.assets.map(asset => {
+            source.uri = asset.uri;
+            dataImage.uri = asset.uri;
+            dataImage.type = asset.type;
+            dataImage.name = asset.fileName;
+          });
 
           setPhoto(source);
           dispatch({type: 'SET_PHOTO', value: dataImage});
@@ -60,7 +67,7 @@ const SignUp = ({navigation}) => {
     <View style={styles.page}>
       <Header
         title="Sign Up"
-        subTitle="Register and eat"
+        subTitle="Register Wellcomm Store"
         onBack={() => navigation.goBack()}
       />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>

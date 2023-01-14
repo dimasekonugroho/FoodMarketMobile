@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
-import {Logo} from '../../assets';
+import {IcWellcomm} from '../../assets';
 import {getData} from '../../utils';
 
 const SplashScreen = ({navigation}) => {
@@ -23,11 +23,15 @@ const SplashScreen = ({navigation}) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Logo />
-      <View style={{height: 38}} />
+      <IcWellcomm style={{width: 180, height: 180}} />
+      <View style={{height: 30}} />
       <Text
-        style={{fontSize: 32, color: '#020202', fontFamily: 'Poppins-Medium'}}>
-        FoodMarket
+        style={{fontSize: 27, color: '#020202', fontFamily: 'Poppins-Medium'}}>
+        WELLCOMM
+      </Text>
+      <Text
+        style={{fontSize: 50, color: '#020202', fontFamily: 'Poppins-Medium'}}>
+        STORE
       </Text>
     </View>
   );

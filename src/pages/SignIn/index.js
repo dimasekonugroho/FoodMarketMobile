@@ -25,7 +25,7 @@ const SignIn = ({navigation}) => {
 
   return (
     <View style={styles.page}>
-      <Header title="Sign In" subTitle="Find yor best ever meal" />
+      <Header title="Sign In" subTitle="Wellcomm Store" />
       <View style={styles.container}>
         <TextInput
           label="Email Address"

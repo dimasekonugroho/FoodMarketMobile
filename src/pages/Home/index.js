@@ -1,5 +1,4 @@
-import React from 'react';
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../component';
@@ -11,7 +10,7 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getFoodData());
-  });
+  }, []);
   return (
     // <ScrollView>
     <View style={styles.page}>

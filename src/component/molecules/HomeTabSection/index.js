@@ -1,11 +1,17 @@
-import {StyleSheet, Text, View, useWindowDimensions, Image} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+  Image,
+  ScrollView,
+} from 'react-native';
+import React, {useEffect} from 'react';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {foodDummy1, foodDummy2, foodDummy3, foodDummy4} from '../../../assets';
 import ItemListFood from '../ItemListFood';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {useEffect} from 'react';
 import {getFoodDataByTypes} from '../../../redux/action';
 
 //custom tab-bar
@@ -42,8 +48,8 @@ const NewTaste = () => {
   const dispatch = useDispatch();
   const {newTaste} = useSelector(state => state.homeReducer);
   useEffect(() => {
-    dispatch(getFoodDataByTypes('new_food'));
-  });
+    dispatch(getFoodDataByTypes('new'));
+  }, []);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {newTaste.map(item => {
@@ -69,23 +75,25 @@ const Popular = () => {
   const {popular} = useSelector(state => state.homeReducer);
   useEffect(() => {
     dispatch(getFoodDataByTypes('popular'));
-  });
+  }, []);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {popular.map(item => {
-        return (
-          <ItemListFood
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            rating={item.rate}
-            image={{uri: item.picturePath}}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {popular.map(item => {
+          return (
+            <ItemListFood
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              rating={item.rate}
+              image={{uri: item.picturePath}}
+              onPress={() => navigation.navigate('FoodDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -95,7 +103,7 @@ const Recommended = () => {
   const {recommended} = useSelector(state => state.homeReducer);
   useEffect(() => {
     dispatch(getFoodDataByTypes('recommended'));
-  });
+  }, []);
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       {recommended.map(item => {

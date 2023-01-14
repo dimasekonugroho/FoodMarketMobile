@@ -6,12 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {IcBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../component';
 import OrderSummary from '../OrderSummary';
-import {useState} from 'react';
-import {useEffect} from 'react';
 import {getData} from '../../utils';
 
 const FoodDetail = ({navigation, route}) => {

@@ -1,8 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {EmptyOrder, Header, OrderTabSection} from '../../component';
 import {useDispatch, useSelector} from 'react-redux';
-import {useEffect} from 'react';
 import {getOrders} from '../../redux/action';
 
 const Order = () => {

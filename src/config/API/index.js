@@ -1,3 +1,3 @@
 export const API_HOST = {
-  url: 'http://foodmarket-backend.buildwithangga.id/api',
+  url: 'https://store.dimasen.my.id/api',
 };

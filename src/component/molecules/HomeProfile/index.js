@@ -11,11 +11,19 @@ const HomeProfile = () => {
       setPhoto({uri: res.profile_photo_url});
     });
   }, []);
+
+  const [userProfile, setUserProfile] = useState({});
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      setUserProfile(res);
+    });
+  }, []);
   return (
     <View style={styles.profileContainer}>
       <View>
-        <Text style={styles.appName}>Jajanan</Text>
-        <Text style={styles.desc}>Lets's get some food</Text>
+        <Text style={styles.hallo}>Hallo {userProfile.name}!</Text>
+        <Text style={styles.desc}>Welcome to </Text>
+        <Text style={styles.appName}>Wellcomm Store</Text>
       </View>
       <Image source={photo} style={styles.profile} />
     </View>
@@ -28,12 +36,24 @@ const styles = StyleSheet.create({
   profileContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 24,
-    paddingTop: 32,
-    paddingBottom: 24,
+    paddingTop: 20,
+    paddingBottom: 20,
     backgroundColor: 'white',
   },
-  appName: {fontSize: 22, fontFamily: 'Poppins-Medium', color: '#020202'},
-  desc: {fontSize: 14, fontFamily: 'Poppins-Light', color: '#8D92A3'},
-  profile: {width: 50, height: 50, borderRadius: 8},
+  appName: {
+    fontSize: 17,
+    fontWeight: '900',
+    fontFamily: 'Poppins-Light',
+    color: '#8D92A3',
+  },
+  desc: {fontSize: 10, fontFamily: 'Poppins-Light', color: '#8D92A3'},
+  hallo: {
+    fontSize: 15,
+    fontFamily: 'Poppins-Medium',
+    color: '#020202',
+    paddingBottom: 10,
+  },
+  profile: {width: 70, height: 70, borderRadius: 10},
 });

@@ -2,7 +2,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Button, Header, ItemListFood, ItemValue} from '../../component';
 import {getData} from '../../utils';
-import {Axios} from 'axios';
+import Axios from 'axios';
 
 const OrderDetail = ({route, navigation}) => {
   const {} = route.params;

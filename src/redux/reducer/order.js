@@ -1,6 +1,6 @@
 const initOrder = {
   orders: [],
-  inPorgress: [],
+  inProgress: [],
   pastOrders: [],
 };
 

@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Button,
   Header,
@@ -7,13 +7,10 @@ import {
   ItemValue,
   Loading,
 } from '../../component';
-import {foodDummy1} from '../../assets';
-import {Axios} from 'axios';
-import {useEffect} from 'react';
+import Axios from 'axios';
 import {getData} from '../../utils';
-import {useState} from 'react';
 import {API_HOST} from '../../config';
-import WebView from 'react-native-webview';
+import {WebView} from 'react-native-webview';
 
 const OrderSummary = ({navigation, route}) => {
   const {item, transaction, userProfile} = route.params;
@@ -30,12 +27,12 @@ const OrderSummary = ({navigation, route}) => {
       status: 'PENDING',
     };
 
-    // pemangginal TOKEN
+    // pemanggilan TOKEN
     getData('token').then(resToken => {
       // pemanggilan API Checkout
       Axios.post(`${API_HOST.url}/checkout`, data, {
         headers: {
-          Authorization: token,
+          Authorization: resToken.value,
         },
       })
         .then(res => {
@@ -51,7 +48,7 @@ const OrderSummary = ({navigation, route}) => {
 
   const onNavChange = state => {
     console.log('nav: ', state);
-    const urlSuccess = 'https://google.com';
+    // const urlSuccess = 'https://google.com';
     const titleWeb = 'Laravel';
     if (state.title === titleWeb) {
       navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]});

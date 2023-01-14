@@ -1,4 +1,5 @@
-import {Axios} from 'axios';
+import Axios from 'axios';
+import {API_HOST} from '../../config';
 import {getData} from '../../utils';
 
 export const getOrders = () => dispatch => {
@@ -20,7 +21,7 @@ export const getOrders = () => dispatch => {
 
 export const getInProgress = () => dispatch => {
   getData('token').then(resToken => {
-    Axios.call([
+    Axios.all([
       Axios.get(`${API_HOST.url}/transaction?status=PENDING`, {
         headers: {
           Authorization: resToken.value,
@@ -38,7 +39,7 @@ export const getInProgress = () => dispatch => {
       }),
     ])
       .then(
-        Axios.spread((res1, res2) => {
+        Axios.spread((res1, res2, res3) => {
           const pending = res1.data.data.data;
           const success = res2.data.data.data;
           const onDelivery = res3.data.data.data;
