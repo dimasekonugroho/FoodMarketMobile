@@ -1,33 +1,47 @@
 const initHome = {
-  food: [],
-  newTaste: [],
-  popular: [],
-  recommended: [],
+  event: [],
+  kabelData: [],
+  powerbank: [],
+  handsfree: [],
+  speaker: [],
+  travelCharger: [],
 };
 
 export const homeReducer = (state = initHome, action) => {
-  if (action.type === 'SET_FOOD') {
+  if (action.type === 'SET_EVENT') {
     return {
       ...state,
-      food: action.value,
+      event: action.value,
     };
   }
-  if (action.type === 'SET_NEW_TASTE') {
+  if (action.type === 'SET_KABEL_DATA') {
     return {
       ...state,
-      newTaste: action.value,
+      kabelData: action.value,
     };
   }
-  if (action.type === 'SET_POPULAR') {
+  if (action.type === 'SET_POWERBANK') {
     return {
       ...state,
-      popular: action.value,
+      powerbank: action.value,
     };
   }
-  if (action.type === 'SET_RECOMMENDED') {
+  if (action.type === 'SET_HANDSFREE') {
     return {
       ...state,
-      recommended: action.value,
+      handsfree: action.value,
+    };
+  }
+  if (action.type === 'SET_SPEAKER') {
+    return {
+      ...state,
+      speaker: action.value,
+    };
+  }
+  if (action.type === 'SET_TRAVEL_CHARGER') {
+    return {
+      ...state,
+      travelCharger: action.value,
     };
   }
   return state;

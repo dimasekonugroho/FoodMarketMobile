@@ -1,16 +1,17 @@
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   useWindowDimensions,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
-import React, {useEffect} from 'react';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import ItemListFood from '../ItemListFood';
-import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getInProgress, getPastOrders} from '../../../redux/action';
+import ItemListProduct from '../ItemListProduct';
 
 //custom tab-bar
 const renderTabBar = props => (
@@ -42,6 +43,7 @@ const renderTabBar = props => (
 );
 
 const InProgress = () => {
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {inProgress} = useSelector(state => state.orderReducer);
@@ -50,19 +52,29 @@ const InProgress = () => {
     dispatch(getInProgress());
   }, []);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    dispatch(getInProgress());
+    setRefreshing(false);
+  };
+
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <View style={{paddingTop: 8, paddingHorizontal: 24}}>
         {inProgress.map(order => {
           return (
-            <ItemListFood
+            <ItemListProduct
               key={order.id}
-              image={{uri: order.food.picturePath}}
+              image={{uri: order.product.picturePath}}
               onPress={() => navigation.navigate('OrderDetail', order)}
               type="in-progress"
               items={order.quantity}
-              name={order.food.name}
               price={order.total}
+              name={order.product.name}
+              status={order.status}
             />
           );
         })}
@@ -72,6 +84,7 @@ const InProgress = () => {
 };
 
 const PastOrders = () => {
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {pastOrders} = useSelector(state => state.orderReducer);
@@ -80,31 +93,38 @@ const PastOrders = () => {
     dispatch(getPastOrders());
   }, []);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    dispatch(getPastOrders());
+    dispatch(getInProgress());
+    setRefreshing(false);
+  };
+
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {pastOrders.map(order => {
-        return (
-          <ItemListFood
-            key={order.id}
-            image={{uri: order.food.picturePath}}
-            onPress={() => navigation.navigate('OrderDetail', order)}
-            type="past-orders"
-            items={order.quantity}
-            name={order.food.name}
-            price={order.total}
-            date={order.created_at}
-            status={order.status}
-          />
-        );
-      })}
-    </View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {pastOrders.map(order => {
+          return (
+            <ItemListProduct
+              key={order.id}
+              image={{uri: order.product.picturePath}}
+              onPress={() => navigation.navigate('OrderDetail', order)}
+              type="past-orders"
+              items={order.quantity}
+              name={order.product.name}
+              price={order.total}
+              date={order.created_at}
+              status={order.status}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
-
-const renderScene = SceneMap({
-  1: InProgress,
-  2: PastOrders,
-});
 
 const OrderTabSection = () => {
   const layout = useWindowDimensions();
@@ -114,6 +134,11 @@ const OrderTabSection = () => {
     {key: '1', title: 'In Progress'},
     {key: '2', title: 'Past Orders'},
   ]);
+
+  const renderScene = SceneMap({
+    1: InProgress,
+    2: PastOrders,
+  });
 
   return (
     <TabView

@@ -1,10 +1,10 @@
 import Header from './Header';
 import BottomNavigator from './BottomNavigator';
-import FoodCard from './FoodCard';
+import EventCard from './EventCard';
 import HomeTabSection from './HomeTabSection';
 import HomeProfile from './HomeProfile';
 import Rating from './Rating';
-import ItemListFood from './ItemListFood';
+import ItemListProduct from './ItemListProduct';
 import Counter from './Counter';
 import ItemValue from './ItemValue';
 import EmptyOrder from './EmptyOrder';
@@ -17,11 +17,11 @@ import Number from './Number';
 export {
   Header,
   BottomNavigator,
-  FoodCard,
+  EventCard,
   HomeTabSection,
   HomeProfile,
   Rating,
-  ItemListFood,
+  ItemListProduct,
   Counter,
   ItemValue,
   EmptyOrder,

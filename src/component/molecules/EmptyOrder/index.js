@@ -10,14 +10,12 @@ const EmptyOrder = () => {
     <View style={styles.page}>
       <IlEmptyOrder />
       <Gap height={30} />
-      <Text style={styles.title}>Ouch! Hungry</Text>
+      <Text style={styles.title}>Ouch! Empty</Text>
       <Gap height={6} />
-      <Text style={styles.subTitle}>Seems like you have not</Text>
-      <Text style={styles.subTitle}>ordered any food yet</Text>
       <Gap height={30} />
       <View style={styles.buttonContainer}>
         <Button
-          text="Find Foods"
+          text="Find Product"
           onPress={() => navigation.replace('MainApp')}
         />
       </View>

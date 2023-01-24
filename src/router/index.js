@@ -2,7 +2,8 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
-  FoodDetail,
+  ProductDetail,
+  EventDetail,
   Home,
   Order,
   OrderDetail,
@@ -14,6 +15,9 @@ import {
   SplashScreen,
   SuccessOrder,
   SuccessSignUp,
+  EditProfile,
+  EditHomeAddress,
+  EditPassUser,
 } from '../pages';
 import {BottomNavigator} from '../component';
 
@@ -72,8 +76,13 @@ const Router = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="FoodDetail"
-        component={FoodDetail}
+        name="ProductDetail"
+        component={ProductDetail}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EventDetail"
+        component={EventDetail}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -89,6 +98,21 @@ const Router = () => {
       <Stack.Screen
         name="OrderDetail"
         component={OrderDetail}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditHomeAddress"
+        component={EditHomeAddress}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditPassUser"
+        component={EditPassUser}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

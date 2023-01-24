@@ -3,16 +3,15 @@ import {
   Text,
   View,
   useWindowDimensions,
-  Image,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {foodDummy1, foodDummy2, foodDummy3, foodDummy4} from '../../../assets';
-import ItemListFood from '../ItemListFood';
+import ItemListProduct from '../ItemListProduct';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFoodDataByTypes} from '../../../redux/action';
+import {getProductDataByTypes} from '../../../redux/action';
 
 //custom tab-bar
 const renderTabBar = props => (
@@ -43,52 +42,38 @@ const renderTabBar = props => (
   />
 );
 
-const NewTaste = () => {
+const KabelData = () => {
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {newTaste} = useSelector(state => state.homeReducer);
-  useEffect(() => {
-    dispatch(getFoodDataByTypes('new'));
-  }, []);
-  return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {newTaste.map(item => {
-        return (
-          <ItemListFood
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            rating={item.rate}
-            image={{uri: item.picturePath}}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
-  );
-};
+  const {kabelData} = useSelector(state => state.homeReducer);
 
-const Popular = () => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const {popular} = useSelector(state => state.homeReducer);
   useEffect(() => {
-    dispatch(getFoodDataByTypes('popular'));
+    dispatch(getProductDataByTypes('kabel_data'));
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    dispatch(getProductDataByTypes('kabel_data'));
+    setRefreshing(false);
+  };
+
   return (
-    <ScrollView>
-      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-        {popular.map(item => {
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 10}}>
+        {kabelData.map(item => {
           return (
-            <ItemListFood
+            <ItemListProduct
               key={item.id}
               type="product"
               name={item.name}
               price={item.price}
               rating={item.rate}
               image={{uri: item.picturePath}}
-              onPress={() => navigation.navigate('FoodDetail', item)}
+              onPress={() => navigation.navigate('ProductDetail', item)}
             />
           );
         })}
@@ -97,36 +82,172 @@ const Popular = () => {
   );
 };
 
-const Recommended = () => {
+const Powerbank = () => {
+  const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {recommended} = useSelector(state => state.homeReducer);
+  const {powerbank} = useSelector(state => state.homeReducer);
+
   useEffect(() => {
-    dispatch(getFoodDataByTypes('recommended'));
+    dispatch(getProductDataByTypes('powerbank'));
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    dispatch(getProductDataByTypes('powerbank'));
+    setRefreshing(false);
+  };
+
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      {recommended.map(item => {
-        return (
-          <ItemListFood
-            key={item.id}
-            type="product"
-            name={item.name}
-            price={item.price}
-            rating={item.rate}
-            image={{uri: item.picturePath}}
-            onPress={() => navigation.navigate('FoodDetail', item)}
-          />
-        );
-      })}
-    </View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 10}}>
+        {powerbank.map(item => {
+          return (
+            <ItemListProduct
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              rating={item.rate}
+              image={{uri: item.picturePath}}
+              onPress={() => navigation.navigate('ProductDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
+  );
+};
+
+const Handsfree = () => {
+  const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {handsfree} = useSelector(state => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getProductDataByTypes('handsfree'));
+  }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    dispatch(getProductDataByTypes('handsfree'));
+    setRefreshing(false);
+  };
+
+  return (
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 10}}>
+        {handsfree.map(item => {
+          return (
+            <ItemListProduct
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              rating={item.rate}
+              image={{uri: item.picturePath}}
+              onPress={() => navigation.navigate('ProductDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
+  );
+};
+
+const Speaker = () => {
+  const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {speaker} = useSelector(state => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getProductDataByTypes('speaker'));
+  }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    dispatch(getProductDataByTypes('speaker'));
+    setRefreshing(false);
+  };
+
+  return (
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 10}}>
+        {speaker.map(item => {
+          return (
+            <ItemListProduct
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              rating={item.rate}
+              image={{uri: item.picturePath}}
+              onPress={() => navigation.navigate('ProductDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
+  );
+};
+
+const TravelCharger = () => {
+  const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {travelCharger} = useSelector(state => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getProductDataByTypes('travel_charger'));
+  }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    dispatch(getProductDataByTypes('travel_charger'));
+    setRefreshing(false);
+  };
+
+  return (
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={{paddingTop: 8, paddingHorizontal: 10}}>
+        {travelCharger.map(item => {
+          return (
+            <ItemListProduct
+              key={item.id}
+              type="product"
+              name={item.name}
+              price={item.price}
+              rating={item.rate}
+              image={{uri: item.picturePath}}
+              onPress={() => navigation.navigate('ProductDetail', item)}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
 const renderScene = SceneMap({
-  1: NewTaste,
-  2: Popular,
-  3: Recommended,
+  1: KabelData,
+  2: Powerbank,
+  3: Handsfree,
+  4: Speaker,
+  5: TravelCharger,
 });
 
 const HomeTabSection = () => {
@@ -134,9 +255,11 @@ const HomeTabSection = () => {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: '1', title: 'New Taste'},
-    {key: '2', title: 'Popular'},
-    {key: '3', title: 'Recommended'},
+    {key: '1', title: 'Kabel Data'},
+    {key: '2', title: 'Powerbank'},
+    {key: '3', title: 'Handsfree'},
+    {key: '4', title: 'Speaker'},
+    {key: '5', title: 'Travel Charger'},
   ]);
 
   return (

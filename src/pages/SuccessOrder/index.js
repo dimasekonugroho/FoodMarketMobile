@@ -10,12 +10,12 @@ const SuccessOrder = ({navigation}) => {
       <Gap height={30} />
       <Text style={styles.title}>You've Made Order</Text>
       <Gap height={6} />
-      <Text style={styles.subTitle}>Just stay at home while we are</Text>
-      <Text style={styles.subTitle}>preparing your best foods</Text>
+      <Text style={styles.subTitle}>Thank You</Text>
+      <Text style={styles.subTitle}>for your order!</Text>
       <Gap height={30} />
       <View style={styles.buttonContainer}>
         <Button
-          text="Order Other Foods"
+          text="Order Other"
           onPress={() => navigation.replace('MainApp')}
         />
       </View>

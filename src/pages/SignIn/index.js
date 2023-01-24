@@ -6,12 +6,6 @@ import {useDispatch} from 'react-redux';
 import {signInAction} from '../../redux/action/auth';
 
 const SignIn = ({navigation}) => {
-  /*
-  // menggunakan useState
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  */
-
   // menggunakan custom Hooks
   const [form, setForm] = useForm({
     email: '',

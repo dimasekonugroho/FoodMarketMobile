@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import Rating from '../Rating';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Number from '../Number';
+import Rating from '../Rating';
 
 /*
 TYPE: 
@@ -11,7 +11,7 @@ TYPE:
 4. past-orders
 */
 
-const ItemListFood = ({
+const ItemListProduct = ({
   image,
   onPress,
   rating,
@@ -59,6 +59,7 @@ const ItemListFood = ({
                 <View style={styles.dot} />
                 <Number number={price} style={styles.price} />
               </View>
+              <Text style={styles.status(status)}>{status}</Text>
             </View>
           </>
         );
@@ -109,7 +110,7 @@ const ItemListFood = ({
   );
 };
 
-export default ItemListFood;
+export default ItemListProduct;
 
 const styles = StyleSheet.create({
   container: {

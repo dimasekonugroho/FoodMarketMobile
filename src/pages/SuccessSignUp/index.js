@@ -11,11 +11,10 @@ const SuccessSignUp = ({navigation}) => {
       <Text style={styles.title}>Yeay! Completed</Text>
       <Gap height={6} />
       <Text style={styles.subTitle}>Now you are able to order</Text>
-      <Text style={styles.subTitle}>some foods as a self-reward</Text>
       <Gap height={30} />
       <View style={styles.buttonContainer}>
         <Button
-          text="Find Foods"
+          text="Find Products"
           onPress={() =>
             navigation.reset({index: 0, routes: [{name: 'MainApp'}]})
           }

@@ -9,10 +9,9 @@ import {
 import React, {useState, useEffect} from 'react';
 import {IcBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../component';
-import OrderSummary from '../OrderSummary';
 import {getData} from '../../utils';
 
-const FoodDetail = ({navigation, route}) => {
+const ProductDetail = ({navigation, route}) => {
   const {id, name, picturePath, description, ingredients, rate, price} =
     route.params;
   const [totalItem, setTotalItem] = useState(1);
@@ -55,7 +54,7 @@ const FoodDetail = ({navigation, route}) => {
       userProfile,
     };
 
-    console.log('data order: ', data);
+    console.log('data yang mau di order: ', data);
     navigation.navigate('OrderSummary', data);
   };
 
@@ -76,13 +75,11 @@ const FoodDetail = ({navigation, route}) => {
                 <Text style={styles.title}>{name}</Text>
                 <Rating number={rate} />
               </View>
-
               {/* hitungaan */}
               <Counter onValueChange={onCounterChange} />
             </View>
+            <Text style={styles.descTitle}>Description Product:</Text>
             <Text style={styles.desc}>{description}</Text>
-            <Text style={styles.label}>Ingredients:</Text>
-            <Text style={styles.desc}>{ingredients}</Text>
           </View>
           <View style={styles.footer}>
             <View style={styles.priceContainer}>
@@ -99,7 +96,7 @@ const FoodDetail = ({navigation, route}) => {
   );
 };
 
-export default FoodDetail;
+export default ProductDetail;
 
 const styles = StyleSheet.create({
   page: {flex: 1},
@@ -126,7 +123,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 14,
   },
-  title: {fontSize: 16, fontFamily: 'Poppins-Regular', color: '#020202'},
+  title: {
+    fontSize: 16,
+    fontFamily: 'Poppins-Regular',
+    color: '#020202',
+    // width: '50%',
+  },
+  descTitle: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#020202',
+  },
   desc: {
     fontSize: 14,
     fontFamily: 'Poppins-Regular',

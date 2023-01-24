@@ -35,5 +35,5 @@ export default Order;
 const styles = StyleSheet.create({
   page: {flex: 1},
   content: {flex: 1},
-  tabContainer: {flex: 1, marginTop: 24},
+  tabContainer: {flex: 1, marginTop: 10},
 });

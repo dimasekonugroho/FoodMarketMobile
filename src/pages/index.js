@@ -6,10 +6,14 @@ import SuccessSignUp from './SuccessSignUp';
 import Home from './Home';
 import Order from './Order';
 import Profile from './Profile';
-import FoodDetail from './FoodDetail';
+import ProductDetail from './ProductDetail';
 import OrderSummary from './OrderSummary';
 import SuccessOrder from './SuccessOrder';
 import OrderDetail from './OrderDetail';
+import EventDetail from './EventDetail';
+import EditProfile from './EditProfile';
+import EditHomeAddress from './EditHomeAddress';
+import EditPassUser from './EditPassUser';
 
 export {
   SplashScreen,
@@ -20,8 +24,12 @@ export {
   Home,
   Order,
   Profile,
-  FoodDetail,
+  ProductDetail,
   OrderSummary,
   SuccessOrder,
   OrderDetail,
+  EventDetail,
+  EditProfile,
+  EditHomeAddress,
+  EditPassUser,
 };

@@ -18,6 +18,7 @@ const HomeProfile = () => {
       setUserProfile(res);
     });
   }, []);
+
   return (
     <View style={styles.profileContainer}>
       <View>

@@ -1,11 +1,12 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {Button, Header, ItemListFood, ItemValue} from '../../component';
-import {getData} from '../../utils';
 import Axios from 'axios';
+import React from 'react';
+import {ScrollView, StyleSheet, Text, View, Alert} from 'react-native';
+import {Button, Header, ItemListProduct, ItemValue} from '../../component';
+import {API_HOST} from '../../config';
+import {getData} from '../../utils';
 
 const OrderDetail = ({route, navigation}) => {
-  const {} = route.params;
+  const order = route.params;
 
   const onCancel = () => {
     const data = {
@@ -18,7 +19,6 @@ const OrderDetail = ({route, navigation}) => {
         },
       })
         .then(res => {
-          console.log('success cancel order: ', res);
           navigation.reset({
             index: 0,
             routes: [{name: 'MainApp'}],
@@ -32,27 +32,23 @@ const OrderDetail = ({route, navigation}) => {
   return (
     <ScrollView>
       <View>
-        <Header
-          title="Payment"
-          subTitle="You deserve better meal"
-          onBack={() => navigation.goBack()}
-        />
+        <Header title="Payment" onBack={() => navigation.goBack()} />
         <View style={styles.content}>
           <Text style={styles.label}>Item Ordered</Text>
-          <ItemListFood
-            image={{uri: order.food.picturePath}}
+          <ItemListProduct
+            image={{uri: order.product.picturePath}}
             type="order-summary"
-            name={order.food.name}
-            price={order.food.price}
+            name={order.product.name}
+            price={order.product.price}
             items={order.quantity}
           />
           <Text style={styles.label}>Details Transaction</Text>
           <ItemValue
-            label={order.food.name}
-            value={order.food.price * order.quantity}
+            label={order.product.name}
+            value={order.product.price * order.quantity}
             type="currency"
           />
-          <ItemValue label="Driver" value={50000} type="currency" />
+          <ItemValue label="Shipping" value={10000} type="currency" />
           <ItemValue
             label="Tax 10%"
             value={(10 / 100) * order.total}
@@ -87,7 +83,17 @@ const OrderDetail = ({route, navigation}) => {
           {order.status === 'PENDING' && (
             <Button
               text="Cancel My Order"
-              onPress={onCancel}
+              // onPress={onCancel}
+              onPress={() =>
+                Alert.alert(
+                  'Cancel Order',
+                  'Are you sure, do you want to cancel order?',
+                  [
+                    {text: 'No', onPress: () => console.log('Button No')},
+                    {text: 'Yes', onPress: () => onCancel()},
+                  ],
+                )
+              }
               color="#D9435E"
               textColor="white"
             />
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 24,
     paddingVertical: 16,
-    marginTop: 24,
+    marginTop: 10,
   },
   label: {
     fontSize: 14,
@@ -113,5 +119,5 @@ const styles = StyleSheet.create({
     color: '#020202',
     marginBottom: 8,
   },
-  button: {paddingHorizontal: 24, paddingBottom: 24, marginTop: 24},
+  button: {paddingHorizontal: 24, paddingBottom: 24, marginTop: 15},
 });

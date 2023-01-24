@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {
   Button,
   Header,
-  ItemListFood,
+  ItemListProduct,
   ItemValue,
   Loading,
 } from '../../component';
@@ -20,7 +20,7 @@ const OrderSummary = ({navigation, route}) => {
   // proses checkout
   const onCheckout = () => {
     const data = {
-      food_id: item.id,
+      product_id: item.id,
       user_id: userProfile.id,
       quantity: transaction.totalItem,
       total: transaction.total,
@@ -85,7 +85,7 @@ const OrderSummary = ({navigation, route}) => {
         />
         <View style={styles.content}>
           <Text style={styles.label}>Item Ordered</Text>
-          <ItemListFood
+          <ItemListProduct
             image={{uri: item.picturePath}}
             type="order-summary"
             name={item.name}
@@ -99,7 +99,7 @@ const OrderSummary = ({navigation, route}) => {
             type="currency"
           />
           <ItemValue
-            label="Driver"
+            label="Shipping"
             value={transaction.driver}
             type="currency"
           />
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 24,
     paddingVertical: 16,
-    marginTop: 24,
+    marginTop: 10,
   },
   label: {
     fontSize: 14,
@@ -144,5 +144,5 @@ const styles = StyleSheet.create({
     color: '#020202',
     marginBottom: 8,
   },
-  button: {paddingHorizontal: 24, paddingBottom: 24, marginTop: 24},
+  button: {paddingHorizontal: 24, paddingBottom: 24, marginTop: 15},
 });
